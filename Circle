@@ -1,56 +1,43 @@
-﻿using Microsoft.Win32.SafeHandles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Circle
+public class Circle
 {
-    public class Circle
+    private double radius;
+
+    public double Radius
     {
-        private double radius;
-
-        public double Radius
+        get { return radius; }
+        set
         {
-            get { return radius; }
-            set
+            if (value > 0)
             {
-                if (value <= 0)
-                {
-                    Console.WriteLine("Радиус должен быть больше 0!");
-                    radius = 1; 
-                }
-                else
-                {
-                    radius = value;
-                }
+                radius = value;
             }
-        }
-
-        public Circle(double radius)
-        {
-            Radius = radius;
-        }
-
-        public void GetArea()
-        {
-            double area = Math.PI * radius * radius;
-            Console.WriteLine($"Площадь круга: {area}.");
+            else
+            {
+                Console.WriteLine("Радиус должен быть больше 0!");
+                radius = 1;
+            }
         }
     }
 
-    class Program
+    public Circle(double radius)
     {
-        static void Main(string[] args)
-        {
-            Circle circle1 = new Circle(5);
-            circle1.GetArea();
+        Radius = radius;
+    }
 
-            Circle circle2 = new Circle(-2);
-            circle2.GetArea();
+    public void GetArea()
+    {
+        double area = Math.PI * radius * radius;
+        Console.WriteLine($"Площадь круга: {area}.");
+    }
 
-            Console.ReadKey();
-        }
+    static void Main()
+    {
+        Circle circle1 = new Circle(5);
+        circle1.GetArea();
+
+        circle1.Radius = -2;
+        circle1.GetArea();
     }
 }
