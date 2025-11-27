@@ -1,74 +1,65 @@
-﻿using Microsoft.Win32.SafeHandles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Pet
+public class Pet
 {
-    public class Pet
+    private string name;
+    private int energy;
+
+    public string Name
     {
-        private string name;
-        private int energy;
+        get { return name; }
+        set { name = value; }
+    }
 
-        public string Name
+    public int Energy
+    {
+        get { return energy; }
+        set
         {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public int Energy
-        {
-            get { return energy; }
-            set
+            if (value >= 0 && value <= 100)
             {
-                if (value < 0 || value > 100)
-                {
-                    Console.WriteLine("Энергия должна быть от 0 до 100!");
-                    energy = 50;
-                }
-                else
-                {
-                    energy = value;
-                }
+                energy = value;
             }
-        }
-
-        public Pet(string name, int energy)
-        {
-            Name = name;
-            Energy = energy;
-        }
-
-        public void Play()
-        {
-            energy = Math.Max(0, energy - 10);
-            Console.WriteLine($"{Name} играет, энергия: {energy}.");
-        }
-
-        public void Rest()
-        {
-            energy = Math.Min(100, energy + 20);
-            Console.WriteLine($"{Name} отдыхает, энергия: {energy}.");
+            else
+            {
+                Console.WriteLine("Энергия должна быть от 0 до 100!");
+            }
         }
     }
 
-    class Program
+    public Pet(string name, int energy)
     {
-        static void Main(string[] args)
+        Name = name;
+        Energy = energy;
+    }
+
+    public void Play()
+    {
+        Energy -= 20;
+        if (Energy < 0)
         {
-           
-            Pet pet = new Pet("Бим", 80);
-            pet.Play();  
-            pet.Rest();  
-
-            Console.WriteLine();
-
-            Pet pet2 = new Pet("Бобик", 140);
-            pet2.Play();
-
-            Console.ReadKey();
+            Energy = 0;
         }
+        Console.WriteLine($"{Name} играет, энергия: {Energy}.");
+    }
+
+    public void Rest()
+    {
+        Energy += 30;
+        if (Energy > 100)
+        {
+            Energy = 100;
+        }
+        Console.WriteLine($"{Name} отдыхает, энергия: {Energy}.");
+    }
+
+    static void Main()
+    {
+        Pet pet = new Pet("Рекс", 80);
+        pet.Play();
+        pet.Rest();
+        
+        pet.Energy = 150;
+        pet.Play();
     }
 }
