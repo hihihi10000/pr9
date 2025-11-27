@@ -1,63 +1,53 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Person
+public class Person
 {
-    public class Person
-    {
-        private string name;
-        private int age;
+    private string name;
+    private int age;
 
-        public string Name { get { return name; } set { name = value; } }
-        public int Age
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+
+    public int Age
+    {
+        get { return age; }
+        set
         {
-            get { return age; }
-            set
+            if (value >= 0 && value <= 120)
             {
-                if (value < 0 || value > 120)
-                {
-                    Console.WriteLine("Возраст должен быть от 0 до 120!");
-                    age = 0;
-                }
-                else
-                {
-                    age = value;
-                }
+                age = value;
+            }
+            else
+            {
+                Console.WriteLine("Возраст должен быть от 0 до 120!");
+                age = 0;
             }
         }
-        public Person(string name, int age)
-        {
-            Name = name;
-            Age = age;
-        }
-        public void SayHello()
-        {
-            Console.WriteLine($"Привет, я {Name}, мне {Age} лет!");
-
-        }
     }
-    class Program
+
+    public Person(string name, int age)
     {
-        static void Main(string[] args)
-        {
-            Person persone1 = new Person("Иван", 25);
-            persone1.SayHello();
-
-            Console.WriteLine();
-
-            Person persone2 = new Person("Даниил", 150);
-            persone2.SayHello();
-
-
-            Console.WriteLine();
-
-            Person persone3 = new Person("Мария", -5);
-            persone3.SayHello();
-
-        }
+        Name = name;
+        Age = age;
     }
-} 
 
+    public void SayHello()
+    {
+        Console.WriteLine($"Привет, я {Name}, мне {Age} лет!");
+    }
+
+    static void Main()
+    {
+        Person person = new Person("Маша", 25);
+        person.SayHello();
+
+        person.Age = 150;
+        person.SayHello();
+
+        person.Age = -5;
+        person.SayHello();
+    }
+}
